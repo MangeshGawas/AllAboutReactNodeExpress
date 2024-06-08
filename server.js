@@ -10,6 +10,14 @@ const friends = [{
 {
     id:1,
     name:"Virat"
+},
+{
+    id:2,
+    name:"Rohit"
+},
+{
+    id:3,
+    name:"Bumrah"
 }
 ]
 
