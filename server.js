@@ -47,6 +47,7 @@ app.get('/friends/:friendId',(req,res)=>{
 app.get('/messages',(req,res)=>{
 res.send('<!DOCTYPE html><h1>Hello World</h2></html>')
 })
+
 app.post('/messages',(req,res)=>{
 console.log("Updating message")
 })
