@@ -1,5 +1,4 @@
 const express = require('express')
-const { del } = require('express/lib/application')
 const app = express()
 const PORT = 3000
 
@@ -18,7 +17,7 @@ const friends = [{
 },
 {
     id:3,
-    name:"Bumrah"
+    name:"Hardik"
 }
 ]
 
