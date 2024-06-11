@@ -1,43 +1,39 @@
-const express = require('express')
-const app = express()
-const mongoose = require('mongoose')
-const morgan = require('morgan')
-var cors = require('cors')
-const bodyParser = require('body-parser') 
-require("dotenv").config()
-const cookieParser = require('cookie-parser')
-const errorHandler = require("./middleware/error");
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+require("dotenv").config();
+var cors = require('cors');
+
+
 
 
 // import routes
 const authRoutes = require('./routes/authRoutes');
 
-// error middleware
-app.use(errorHandler);
+const cookieParser = require("cookie-parser");
+const errorHandler = require("./middleware/error");
 
-//port 
-const port = process.env.PORT || 9000
-
-// connectDB
+//database connection
 mongoose.connect('mongodb://127.0.0.1:27017/jobportal-api', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }).then(() => {
-    console.log('Connected to MongoDB');
-  }).catch((err) => {
-    console.error('Failed to connect to MongoDB', err);
-  });
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+    // useCreateIndex: true,
+    // useFindAndModify: false
+})
+    .then(() => console.log("DB connected"))
+    .catch((err) => console.log(err));
 
-
-  //Middleware
-  app.use(morgan('dev'))
-  app.use(bodyParser.json({limit:"5mb"}))
-  app.use(bodyParser.urlencoded({
-    limit:"5mb",
-    extended:true
-  }))
-  app.use(cookieParser())
-  app.use(cors())
+//MIDDLEWARE
+app.use(morgan('dev'));
+app.use(bodyParser.json({ limit: "5mb" }));
+app.use(bodyParser.urlencoded({
+    limit: "5mb",
+    extended: true
+}));
+app.use(cookieParser());
+app.use(cors());
 
 
 //ROUTES MIDDLEWARE
@@ -46,6 +42,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/jobportal-api', {
 // })
 app.use('/api', authRoutes);
 
-app.listen(port, ()=>{
-    console.log(`Server running on port ${port}`)
-})
+// error middleware
+app.use(errorHandler);
+
+//port
+const port = process.env.PORT || 9000
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
